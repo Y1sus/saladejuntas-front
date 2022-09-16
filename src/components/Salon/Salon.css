@@ -1,0 +1,22 @@
+.cardSalon {
+  cursor: pointer;
+  height: 100%;
+  width: 100%;
+  position: relative;
+  border: 2px solid #3349c0;
+  /* background-color: rgba(247, 247, 247, 0.89); */
+  /* color: var(--primary); */
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border: 2px solid transparent;
+  border-radius: 4px;
+}
+
+
+.titulo{
+    font-size: 25px;
+    font-weight: bold;
+    color: #3349c0;
+    /* text-align: center; */
+    
+}

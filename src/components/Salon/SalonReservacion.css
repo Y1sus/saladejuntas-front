@@ -1,0 +1,74 @@
+
+label {
+  width: 100%;
+  height: 100%;
+  font-size: 1rem;
+}
+
+.card-input-element+.card {
+  height: calc(80px + 2*1rem);
+  width: calc(160px + 2*1rem);
+  /* height: 100%;
+  width: 100%; */
+  color: var(--primary);
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border: 2px solid transparent;
+  border-radius: 4px;
+  align-items: center;
+  /* text-align: justify; */
+}
+
+.card-input-element+.card:hover {
+  cursor: pointer;
+}
+
+.card-input-element:checked+.card {
+  border: 2px solid #3349c0;
+  -webkit-transition: border .3s;
+  -o-transition: border .3s;
+  transition: border .3s;
+}
+
+.card-input-element:checked+.card::after {
+  content: '\e5ca';
+  color: #3349c0;
+  font-family: 'Material Icons';
+  font-size: 24px;
+  -webkit-animation-name: fadeInCheckbox;
+  animation-name: fadeInCheckbox;
+  -webkit-animation-duration: .5s;
+  animation-duration: .5s;
+  -webkit-animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@-webkit-keyframes fadeInCheckbox {
+  from {
+    opacity: 0;
+    -webkit-transform: rotateZ(-20deg);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: rotateZ(0deg);
+  }
+}
+
+@keyframes fadeInCheckbox {
+  from {
+    opacity: 0;
+    transform: rotateZ(-20deg);
+  }
+  to {
+    opacity: 1;
+    transform: rotateZ(0deg);
+  }
+}
+
+.sinSalones{
+  width: 100%;
+  height: 100%;
+  margin-top: 40px;
+  margin-bottom: 10px;
+  color: rgba(173, 2, 2, 0.692);
+}
