@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { openNotification } from "../ModalesAlerts/Alerts";
 import axios from "axios";
 import { Popconfirm } from "antd";
-import { config } from "../../Utils/config";
+
 
 export const Reservacion = () => {
   const navigate = useNavigate();
@@ -12,8 +12,15 @@ export const Reservacion = () => {
   const [reservaciones, setReservaciones] = useState([]);
   const [reservacionCount, setReservacionCount] = useState(0);
 
+  const httpConfig = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+  };
+
   const obtenerReservaciones = async () => {
-    const obtenerReservaciones = await axios.get(URL_API, config.httpConfig);
+    const obtenerReservaciones = await axios.get(URL_API, httpConfig);
     if (obtenerReservaciones.status === 200) {
       setReservaciones(obtenerReservaciones.data.data);
       setReservacionCount(obtenerReservaciones.data.data.length);
@@ -23,11 +30,7 @@ export const Reservacion = () => {
   const handleCancelarReservacion = async (reservacion) => {
     const url_cancelar = URL_API + "/finish/" + reservacion;
 
-    const cancelarReservacion = await axios.post(
-      url_cancelar,
-      {},
-      config.httpConfig
-    );
+    const cancelarReservacion = await axios.post(url_cancelar, {}, httpConfig);
     if (cancelarReservacion.status === 200) {
       setReservacionCount(reservacionCount - 1);
       openNotification(

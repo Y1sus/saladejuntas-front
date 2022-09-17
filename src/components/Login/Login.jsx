@@ -9,8 +9,8 @@ import "./login.css";
 export const Login = () => {
   const navigate = useNavigate();
   const URL_LOGIN = "http://localhost:4000/api/login";
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [errorEmail, setErrorEmail] = useState(false);
   const [errorPassword, setErrorPassword] = useState(false);
 
@@ -41,14 +41,12 @@ export const Login = () => {
       const login = await axios.post(URL_LOGIN, data);
       if (login.status === 200) {
         if (login.data.token !== undefined) {
+          openNotification("success", "Login", "Credenciales correctas");
+          // await sleep(3000);
           localStorage.setItem("token", login.data.token);
           localStorage.setItem("id_usuario", login.data.data.id_usuario);
-          openNotification("success", "Login", "Credenciales correctas");
-          await sleep(3000);
-          navigate("/reservaciones");
+          await navigate("/reservaciones");
         }
-
-        console.log(login.data.data.id_usuario);
       } else {
         openNotification(
           "error",

@@ -1,5 +1,5 @@
 import "./App.css";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import HeaderNav from "./components/NavBar/HeaderNav";
 import { Salon } from "./components/Salon/Salon";
 import { Reservacion } from "./components/Reservacion/Reservacion";
@@ -54,6 +54,8 @@ function App() {
             </PrivateRoute>
           }
         />
+
+        <Route path="*" element={<Navigate to="/reservaciones" replace />} />
         {/* <Route path="/salon" element={ <Salon />} /> */}
       </Routes>
     </div>

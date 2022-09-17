@@ -2,17 +2,21 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./Salon.css";
-import { config } from "../../Utils/config";
 
 export const Salon = () => {
+  const httpConfig = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+  };
   const navigate = useNavigate();
 
   const URL_API = "http://localhost:4000/api/salon";
   const [salones, setSalones] = useState([]);
-  const [color, setColor] = useState("");
 
   const obtenerSalones = async () => {
-    const response = await axios.get(URL_API, config.httpConfig);
+    const response = await axios.get(URL_API, httpConfig);
     if (response.status === 200) {
       setSalones(response.data.data);
     }
@@ -48,12 +52,12 @@ export const Salon = () => {
               <div className="col-6 mb-3" key={salon.id_salon}>
                 <div
                   className="card cardSalon"
-                  style={{
-                    borderColor:
-                      salon.salon_estatus.id_salon_estatus === 2
-                        ? "#b91616"
-                        : "#16169c",
-                  }}
+                  // style={{
+                  //   borderColor:
+                  //     salon.salon_estatus.id_salon_estatus === 2
+                  //       ? "#b91616"
+                  //       : "#16169c",
+                  // }}
                 >
                   <div className="card-header"></div>
                   <div className="card-body text-center">

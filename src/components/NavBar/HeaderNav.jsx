@@ -73,10 +73,10 @@ const HeaderNav = ({ children }) => {
                   <i className="fa fa-user" aria-hidden="true"></i>
                 </a>
                 <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a className="dropdown-item" href="#">
+                  {/* <a className="dropdown-item" href="#">
                     Configuración
                   </a>
-                  <div className="dropdown-divider"></div>
+                  <div className="dropdown-divider"></div> */}
                   <a className="dropdown-item" onClick={logout}>
                     Logout
                   </a>

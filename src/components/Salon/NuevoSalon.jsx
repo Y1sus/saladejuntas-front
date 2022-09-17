@@ -5,13 +5,19 @@ import React, { useState } from "react";
 import { openNotification } from "../ModalesAlerts/Alerts";
 
 const { TextArea } = Input;
-import { config } from "../../Utils/config";
 
 export const NuevoSalon = () => {
   //   const navigate = useNavigate();
   const [nombreText, setNombreText] = useState("");
   const [descText, setDescText] = useState("");
   const [statusInput, setStatusInput] = useState("");
+
+  const httpConfig = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+  };
 
   const handleNombreChange = (e) => {
     setNombreText(e.target.value);
@@ -36,7 +42,7 @@ export const NuevoSalon = () => {
       const nuevoSalon = await axios.post(
         url_nuevo_salon,
         data,
-        config.httpConfig
+        httpConfig
       );
       if (nuevoSalon.status === 200) {
         setNombreText("");
