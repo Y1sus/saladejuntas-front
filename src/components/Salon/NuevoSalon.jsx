@@ -39,11 +39,7 @@ export const NuevoSalon = () => {
         nombre_salon: nombreText,
         descripcion_salon: descText,
       };
-      const nuevoSalon = await axios.post(
-        url_nuevo_salon,
-        data,
-        httpConfig
-      );
+      const nuevoSalon = await axios.post(url_nuevo_salon, data, httpConfig);
       if (nuevoSalon.status === 200) {
         setNombreText("");
         setDescText("");
@@ -64,12 +60,17 @@ export const NuevoSalon = () => {
   return (
     <div className="container mt-4">
       <div className="card">
-        <div className="card-header">Nuevo Salón</div>
-        <div className="card-body justify-content-center text-center">
+        <div
+          className="card-header h5"
+          style={{ background: "black", color: "white", fontWeight: "bold" }}
+        >
+          Nuevo Salón
+        </div>
+        <div className="card-body justify-content-center text-center" style={{background:'#f0ecec'}}>
           <div className="row">
             <div className="col-3">
               <div className="text-right">
-                <span style={{ color: "red" }}>* </span>Nombre:
+                <span style={{ color: "red" , fontWeight:'bold'}}>* </span>Nombre:
               </div>
             </div>
             <div className="col-9">

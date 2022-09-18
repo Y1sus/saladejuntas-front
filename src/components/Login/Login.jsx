@@ -9,8 +9,8 @@ import "./login.css";
 export const Login = () => {
   const navigate = useNavigate();
   const URL_LOGIN = "http://localhost:4000/api/login";
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [errorEmail, setErrorEmail] = useState(false);
   const [errorPassword, setErrorPassword] = useState(false);
 
@@ -45,6 +45,10 @@ export const Login = () => {
           // await sleep(3000);
           localStorage.setItem("token", login.data.token);
           localStorage.setItem("id_usuario", login.data.data.id_usuario);
+          localStorage.setItem(
+            "id_tipos_usuario",
+            login.data.data.tipos_usuario.id_tipos_usuario
+          );
           await navigate("/reservaciones");
         }
       } else {
@@ -56,10 +60,24 @@ export const Login = () => {
       }
     }
   };
+  const handleRegistro = () => {
+    navigate("/registro");
+  };
 
   return (
     <div className="container containerLogin">
       <div className="card cardLogin">
+        <div
+          className="card-header text-center"
+          style={{
+            background: "black",
+            color: "white",
+            fontWeight: "bold",
+            fontSize: "18px",
+          }}
+        >
+          Iniciar Sesión
+        </div>
         <div className="card-body">
           <form>
             <div className="form-group mt-4">
@@ -80,7 +98,7 @@ export const Login = () => {
                 />
               </Box>
             </div>
-            <div className="form-group mt-4 mb-4">
+            <div className="form-group mt-5 mb-5">
               <Box sx={{ display: "flex", alignItems: "flex-end" }}>
                 <PasswordRounded
                   sx={{ color: "action.active", mr: 1, my: 0.5 }}
@@ -98,8 +116,10 @@ export const Login = () => {
                 />
               </Box>
             </div>
-            <Button className="float-left">Registro</Button>
-            <Button className="float-right" onClick={handleLogin}>
+            <Button className="float-left" style={{fontWeight:'bold'}} onClick={handleRegistro}>
+              Registro
+            </Button>
+            <Button className="float-right" style={{fontWeight:'bold'}} onClick={handleLogin}>
               Login
             </Button>
           </form>

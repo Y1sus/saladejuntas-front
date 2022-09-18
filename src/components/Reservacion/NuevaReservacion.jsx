@@ -8,6 +8,7 @@ import { openNotification } from "../ModalesAlerts/Alerts";
 import axios from "axios";
 
 export const NuevaReservacion = () => {
+  const id_usuario = localStorage.getItem("id_usuario");
   // const location = useLocation();
   const navigate = useNavigate();
 
@@ -73,7 +74,7 @@ export const NuevaReservacion = () => {
     if (salonSeleccionado !== 0) {
       if (horaInicial !== "" && horaFinal !== "") {
         const data = {
-          id_usuario: 1,
+          id_usuario: id_usuario,
           id_salon: salonSeleccionado,
           hora_inicial: horaInicial,
           hora_final: horaFinal,
@@ -113,11 +114,16 @@ export const NuevaReservacion = () => {
   return (
     <div className="container mt-4">
       <div className="card">
-        <div className="card-header">Nueva Reservación</div>
-        <div className="card-body justify-content-center text-center">
-          <h5>Seleccione un salón</h5>
+        <div
+          className="card-header text-center h5"
+          style={{ background: "black", color: "white", fontWeight: "bold" }}
+        >
+          Nueva Reservación
+        </div>
+        <div className="card-body justify-content-center text-center" style={{background:'#f0ecec'}}>
+          <h6>Seleccione un salón</h6>
           <SalonReservacion setSalonSeleccionado={setSalonSeleccionado} />
-          <h5>Seleccione horario</h5>
+          <h5 className="mt-3 mb-3">Seleccione horario</h5>
           <TimePicker.RangePicker
             onOk={handleOnchange}
             placeholder={["Inicio", "Fin"]}

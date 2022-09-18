@@ -40,14 +40,14 @@ export const SalonReservacion = ({ setSalonSeleccionado }) => {
                   <input
                     type="radio"
                     name="demo"
-                    className="card-input-element d-none"
+                    className="card-input-element d-none text-center"
                     id="demo1"
                     value={salon.id_salon}
                     onClick={(e) => {
                       setSalonSeleccionado(e.target.value);
                     }}
                   />
-                  <span className="card card-body bg-light d-flex flex-row justify-content-between align-items-center">
+                  <span className="card card-body justify-content-center align-items-center">
                     {salon.nombre_salon}
                   </span>
                 </label>

@@ -7,12 +7,14 @@ import { NuevaReservacion } from "./components/Reservacion/NuevaReservacion";
 import { NuevoSalon } from "./components/Salon/NuevoSalon";
 import { Login } from "./components/Login/Login";
 import PrivateRoute from "./components/Login/auth";
+import { Registro } from "./components/Registro/Registro";
 
 function App() {
   return (
     <div className="App">
       <Routes>
         <Route default exact path="/login" element={<Login />} />
+        <Route default exact path="/registro" element={<Registro />} />
         {/* <Route path="/" element={ <h1>Hola mundo</h1>} /> */}
         <Route
           path="/salones"
