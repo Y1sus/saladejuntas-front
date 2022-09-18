@@ -1,13 +1,12 @@
 import { Input } from "antd";
 import axios from "axios";
 import React, { useState } from "react";
-// import { useNavigate } from "react-router-dom";
 import { openNotification } from "../ModalesAlerts/Alerts";
 
 const { TextArea } = Input;
 
+// este componente es el que se encarga de mostrar el formulario para crear un nuevo salon
 export const NuevoSalon = () => {
-  //   const navigate = useNavigate();
   const [nombreText, setNombreText] = useState("");
   const [descText, setDescText] = useState("");
   const [statusInput, setStatusInput] = useState("");
@@ -19,20 +18,25 @@ export const NuevoSalon = () => {
     },
   };
 
+  // con esta se asigna el valor del input a la variable de estado nombreText
+  // y se cambia el estado del input a success para mostrar que el input esta correcto ya que este es obligatorio
   const handleNombreChange = (e) => {
     setNombreText(e.target.value);
     setStatusInput("");
   };
 
+  // con esta se asigna el valor del input a la variable de estado descText
   const handleDescChange = (e) => {
     setDescText(e.target.value);
   };
 
+  // esta función es la que se encarga de hacer la petición al servidor para crear un nuevo salon
   const handleGuardarSalon = async () => {
     const url_nuevo_salon = "http://localhost:4000/api/salon/agregar";
 
     if (nombreText !== "") {
       if (descText === "") {
+        // si la descripción esta vacia se le asigna un valor por defecto
         setDescText("Descripción default");
       }
       const data = {

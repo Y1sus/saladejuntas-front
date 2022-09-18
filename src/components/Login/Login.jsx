@@ -6,6 +6,9 @@ import { openNotification } from "../ModalesAlerts/Alerts";
 import { useNavigate } from "react-router-dom";
 import "./login.css";
 
+// esta función es la principal de la pagina, en ella se hace la petición al servidor
+// para verificar si el usuario existe y si la contraseña es correcta, si todo es correcto
+// se redirecciona a la pagina principal, si no se muestra un mensaje de error
 export const Login = () => {
   const navigate = useNavigate();
   const URL_LOGIN = "http://localhost:4000/api/login";
@@ -14,20 +17,20 @@ export const Login = () => {
   const [errorEmail, setErrorEmail] = useState(false);
   const [errorPassword, setErrorPassword] = useState(false);
 
-  const sleep = (ms) => {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-  };
-
+  // esta funcion es la que se encarga de asignar el valor del input a la variable email
   const handleChangeEmail = (e) => {
     setEmail(e.target.value);
     setErrorEmail(false);
   };
 
+  // esta funcion es la que se encarga de asignar el valor del input a la variable password
   const handleChangePassword = (e) => {
     setPassword(e.target.value);
     setErrorPassword(false);
   };
 
+  // esta función es la que se encarga de hacer la petición al servidor para verificar si el usuario existe
+  // y si la contraseña es correcta, si todo es correcto se redirecciona a la pagina principal, si no se muestra un mensaje de error
   const handleLogin = async () => {
     if (email === "" || email === undefined) {
       setErrorEmail(true);
@@ -38,9 +41,11 @@ export const Login = () => {
         email,
         password,
       };
+      // hacemos la petición al servidor y el resultado lo guardamos en la variable login para posteriormente validar si se pudo hacer la petición
       const login = await axios.post(URL_LOGIN, data);
       if (login.status === 200) {
         if (login.data.token !== undefined) {
+          // en caso de que la petición sea correcta se guarda el token en el localstorage y se redirecciona a la pagina principal
           openNotification("success", "Login", "Credenciales correctas");
           // await sleep(3000);
           localStorage.setItem("token", login.data.token);
@@ -60,11 +65,13 @@ export const Login = () => {
       }
     }
   };
+  // función que manda al formulario de registro 
   const handleRegistro = () => {
     navigate("/registro");
   };
 
   return (
+    // creamos el formulario con los inputs y los botones para hacer login 
     <div className="container containerLogin">
       <div className="card cardLogin">
         <div
@@ -116,10 +123,18 @@ export const Login = () => {
                 />
               </Box>
             </div>
-            <Button className="float-left" style={{fontWeight:'bold'}} onClick={handleRegistro}>
+            <Button
+              className="float-left"
+              style={{ fontWeight: "bold" }}
+              onClick={handleRegistro}
+            >
               Registro
             </Button>
-            <Button className="float-right" style={{fontWeight:'bold'}} onClick={handleLogin}>
+            <Button
+              className="float-right"
+              style={{ fontWeight: "bold" }}
+              onClick={handleLogin}
+            >
               Login
             </Button>
           </form>

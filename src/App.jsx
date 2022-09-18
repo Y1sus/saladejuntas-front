@@ -11,11 +11,13 @@ import { Registro } from "./components/Registro/Registro";
 
 function App() {
   return (
+    // En esta parte se crean las rutas para la navegación SPA en el proyecto
     <div className="App">
       <Routes>
+        {/* las rutas que pueden consultarse sin necesidad de verificación de token son solo registro y login */}
         <Route default exact path="/login" element={<Login />} />
         <Route default exact path="/registro" element={<Registro />} />
-        {/* <Route path="/" element={ <h1>Hola mundo</h1>} /> */}
+        {/* Las demás rutas necesitan ser verificadas con un token para poder accesarlas al igual que comparten el mismo navbar */}
         <Route
           path="/salones"
           element={
@@ -56,9 +58,8 @@ function App() {
             </PrivateRoute>
           }
         />
-
+        {/* Aquí se declara la ruta por defecto, que en caso de no estar logueado te redirige al login, de lo contrario la ruta por defecto es reservaciones */}
         <Route path="*" element={<Navigate to="/reservaciones" replace />} />
-        {/* <Route path="/salon" element={ <Salon />} /> */}
       </Routes>
     </div>
   );

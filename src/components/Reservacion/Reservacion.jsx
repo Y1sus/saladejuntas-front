@@ -3,8 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { openNotification } from "../ModalesAlerts/Alerts";
 import axios from "axios";
 import { Popconfirm } from "antd";
-import './reservacion.css';
+import "./reservacion.css";
 
+// esta función es la principal de la pagina, en ella se hace la
+// petición al servidor para obtener y mostrar las reservaciones
 
 export const Reservacion = () => {
   const id_usuario = localStorage.getItem("id_usuario");
@@ -21,6 +23,9 @@ export const Reservacion = () => {
     },
   };
 
+  // esta función es la que se encarga de hacer la petición al servidor para obtener las reservaciones
+  // y guardarlas en la variable de estado reservaciones y en la variable de estado reservacionCount guardamos el numero de reservaciones
+  // para posteriormente mostrarlo en la pagina
   const obtenerReservaciones = async () => {
     const obtenerReservaciones = await axios.post(
       URL_API,
@@ -33,11 +38,18 @@ export const Reservacion = () => {
     }
   };
 
+  // esta función es la que se encarga de hacer la petición al servidor para eliminar una reservación
+  // y posteriormente actualizar la lista de reservaciones
+
   const handleCancelarReservacion = async (reservacion) => {
     const url_cancelar = URL_API + "/finish/" + reservacion;
 
+    // se hace la petición al servidor para cancelar la reservación y el resultado
+    // lo guardamos en la variable cancelarReservacion para posteriormente validar si se pudo hacer la petición
     const cancelarReservacion = await axios.post(url_cancelar, {}, httpConfig);
     if (cancelarReservacion.status === 200) {
+      // si se pudo cancelar la reservación se muestra un mensaje de confirmación
+      // y se actualiza la cantidad de reservaciones en la variable de estado reservacionCount
       setReservacionCount(reservacionCount - 1);
       openNotification(
         "success",
@@ -52,6 +64,10 @@ export const Reservacion = () => {
       );
     }
   };
+  // el useEffect sirve para que se ejecute una función cuando se renderiza el
+  // componente o cuando se actualiza una variable de estado
+  // en este caso se ejecuta la función obtenerReservaciones cuando se renderiza el componente
+  // y cada  que se actualiza la variable de estado reservacionCount
   useEffect(() => {
     obtenerReservaciones();
   }, [reservacionCount]);
@@ -67,7 +83,7 @@ export const Reservacion = () => {
                 state: { reservaciones: reservaciones },
               })
             }
-            style={{fontWeight:'bold'}}
+            style={{ fontWeight: "bold" }}
           >
             Nueva Reservación
           </button>
@@ -92,7 +108,10 @@ export const Reservacion = () => {
                     Reservación
                   </h4>
                   <div className="card-body text-center">
-                    <div className="card-text h4 mb-3" style={{fontWeight:'bold'}}>
+                    <div
+                      className="card-text h4 mb-3"
+                      style={{ fontWeight: "bold" }}
+                    >
                       {reservacion.usuario.detalles_usuario.nombre +
                         " " +
                         reservacion.usuario.detalles_usuario.apellidos}
@@ -109,7 +128,12 @@ export const Reservacion = () => {
                         handleCancelarReservacion(reservacion.id_reservacion)
                       }
                     >
-                      <button className="btn btn-danger mt-4" style={{fontWeight:'bold'}}>Terminar</button>
+                      <button
+                        className="btn btn-danger mt-4"
+                        style={{ fontWeight: "bold" }}
+                      >
+                        Terminar
+                      </button>
                     </Popconfirm>
                   </div>
                 </div>

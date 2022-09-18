@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./Salon.css";
 
+// esta función se encarga de hacer la petición al servidor para obtener los datos del salon
+// y guardarlos en la variable de estado salon para posteriormente mostrarlos en la pagina
 export const Salon = () => {
   const id_tipos_usuario = localStorage.getItem("id_tipos_usuario");
   const httpConfig = {
@@ -16,6 +18,7 @@ export const Salon = () => {
   const URL_API = "http://localhost:4000/api/salon";
   const [salones, setSalones] = useState([]);
 
+  // funcion asincrona para obtener los datos del salon y guardarlos en la variable de estado salones
   const obtenerSalones = async () => {
     const response = await axios.get(URL_API, httpConfig);
     if (response.status === 200) {
@@ -23,6 +26,8 @@ export const Salon = () => {
     }
   };
 
+  // con el useEffect se hace la petición al servidor para obtener los datos
+  // del salon cada vez que se renderiza la pagina
   useEffect(() => {
     obtenerSalones();
   }, []);
@@ -58,7 +63,12 @@ export const Salon = () => {
                 <div className="card cardSalon">
                   <div
                     className="card-header text-center"
-                    style={{ background: "black", color: "white", fontSize:'18px', fontWeight:'bold' }}
+                    style={{
+                      background: "black",
+                      color: "white",
+                      fontSize: "18px",
+                      fontWeight: "bold",
+                    }}
                   >
                     {salon.nombre_salon}
                   </div>
@@ -74,7 +84,7 @@ export const Salon = () => {
                           salon.salon_estatus.id_salon_estatus === 2
                             ? "#e00d0d"
                             : "#16169c",
-                        fontWeight:'bold'
+                        fontWeight: "bold",
                       }}
                     >
                       {salon.salon_estatus.nombre_estatus}
