@@ -1,5 +1,7 @@
 import { Modal, notification } from "antd";
 
+// este archivo contiene las funciones que se encargan de mostrar los mensajes de alerta, de error y de confirmación.
+
 export function modalSuccess(texto) {
   Modal.success({
     content: texto,
@@ -20,6 +22,9 @@ export function modalWarning(texto) {
   });
 }
 
+// esta es la función principal que se encarga de mostrar el mensaje de confirmación, 
+// recibe como parámetros el tipo de mensaje, el texto que se mostrará, 
+// la descripción del mensaje y un icono opcional.
 export function openNotification(type, title, description, icon) {
   notification[type]({
     message: title,

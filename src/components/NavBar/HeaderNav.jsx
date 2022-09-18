@@ -3,12 +3,15 @@ import { Link, useNavigate } from "react-router-dom";
 import { openNotification } from "../ModalesAlerts/Alerts";
 import { SmileOutlined } from "@ant-design/icons";
 
+// esta función crea un componente que se llama HeaderNav.jsx y lo exportas para que lo
+// puedas usar en cualquier parte de tu proyecto. Este componente incluye un titulo del proyecto,
+// un botón para navegar a las reservaciones, un botón para navegar a la página de salones y un botón para cerrar sesión.
+
 const HeaderNav = ({ children }) => {
   const navigate = useNavigate();
-  const sleep = (ms) => {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-  };
 
+  // esta función es la que se encarga de cerrar sesión, para esto se elimina el token del 
+  // localstorage y se redirecciona a la página de login
   const logout = async () => {
     localStorage.removeItem("token");
     openNotification(
@@ -22,7 +25,10 @@ const HeaderNav = ({ children }) => {
 
   return (
     <Fragment>
-      <nav className="navbar navbar-expand-sm navbar-dark bg-dark" style={{ fontWeight: "bold", color: "white " }}>
+      <nav
+        className="navbar navbar-expand-sm navbar-dark bg-dark"
+        style={{ fontWeight: "bold", color: "white " }}
+      >
         <div className="container">
           <Link
             to="/reservaciones"
@@ -57,7 +63,12 @@ const HeaderNav = ({ children }) => {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link to="/salones" className="nav-link" aria-expanded="false" style={{ fontWeight: "bold", color: "white " }}>
+                <Link
+                  to="/salones"
+                  className="nav-link"
+                  aria-expanded="false"
+                  style={{ fontWeight: "bold", color: "white " }}
+                >
                   Salones
                 </Link>
               </li>
@@ -75,10 +86,6 @@ const HeaderNav = ({ children }) => {
                   <i className="fa fa-user" aria-hidden="true"></i>
                 </a>
                 <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                  {/* <a className="dropdown-item" href="#">
-                    Configuración
-                  </a>
-                  <div className="dropdown-divider"></div> */}
                   <a className="dropdown-item" onClick={logout}>
                     Logout
                   </a>

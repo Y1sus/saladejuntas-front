@@ -4,12 +4,21 @@ import { openNotification } from "../ModalesAlerts/Alerts";
 import { useNavigate } from "react-router-dom";
 import "./registro.css";
 
+// esta función regresa un componente de react,
+// en este caso es un formulario que se envía al servidor para registrar un nuevo usuario
+
 export const Registro = () => {
   let validar = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   let validarTelefono = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
   const navigate = useNavigate();
   const URL_REGISTRO = "http://localhost:4000/api/registro";
 
+  // En esta sección se declaran las variables que se utilizarán en el formulario,
+  // estas variables se inicializan con un valor vacío y se declaran con el método useState,
+  // el cual es un método de react que permite declarar variables y asignarles un valor inicial,
+  // además de que permite actualizar el valor de la variable cuando se requiera.
+  
+  // ================ Declaración de variables de estado con los datos principales =================
   const [nombre, setNombre] = useState("");
   const [apellidos, setApellidos] = useState("");
   const [domicilio, setDomicilio] = useState("");
@@ -19,6 +28,9 @@ export const Registro = () => {
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
 
+  // ================ Declaración de variables de estado =================
+
+  // ================ Declaración de variables de estado para los errores =================
   const [nombreError, setNombreError] = useState({
     visible: false,
     mensaje: "",
@@ -51,6 +63,11 @@ export const Registro = () => {
     visible: false,
     mensaje: "",
   });
+  // ================ Declaración de variables de estado para los errores =================
+
+  // Estas funciones se encargan de asignar el valor de los inputs a las variables de estado, 
+  // además de que asignan un valor a las variables de estado de los errores, 
+  // para que no se muestren los errores cuando se esté escribiendo en los inputs.
 
   const handleChangeNombre = (e) => {
     setNombre(e.target.value);
@@ -85,6 +102,8 @@ export const Registro = () => {
     setPasswordConfirmationError({ visible: false });
   };
 
+  // Esta función se encarga de enviar los datos del formulario al servidor para registrar un nuevo usuario, 
+  // además de que valida que los datos ingresados sean correctos. 
   const handleRegistrar = async () => {
     if (nombre === "")
       setNombreError({ visible: true, mensaje: "Ingrese su nombre" });
@@ -118,6 +137,8 @@ export const Registro = () => {
         mensaje: "Las contraseñas no coincide",
       });
     else {
+      // en caso de pasar todas las validaciones, se envían los datos al servidor para registrar un nuevo usuario.
+
       const data = {
         nombre: nombre,
         apellidos: apellidos,
@@ -129,9 +150,21 @@ export const Registro = () => {
       };
       const nuevoRegistro = await axios.post(URL_REGISTRO, data);
       if (nuevoRegistro.status === 200) {
+        // en caso de que el registro sea exitoso, se muestra un mensaje de éxito y se redirige al usuario a la página de inicio de sesión.
         openNotification("success", "Éxito", "Se ha registrado correctamente");
         navigate("/login");
       } else {
+        
+        // en caso de que el registro no sea exitoso, se muestra una notificación de error.
+        // y se limpian los inputs por medio de las variables de estado, al igual que las variables de estado de los errores.
+        setNombre("");
+        setApellidos("");
+        setDomicilio("");
+        setTelefono("");
+        setEdad("");
+        setEmail("");
+        setPassword("");
+        setPasswordConfirmation("");
         setNombreError({ visible: false });
         setApellidosError({ visible: false });
         setDomicilioError({ visible: false });
@@ -150,6 +183,7 @@ export const Registro = () => {
     }
   };
 
+  // con esta se hace un redireccionamiento a la pagina de login
   const handleRegresar = () => {
     navigate("/login");
   };

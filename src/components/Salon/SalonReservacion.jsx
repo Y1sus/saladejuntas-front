@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./SalonReservacion.css";
 
+// Con esta función estamos obteniendo los salones para mostrarlos en creación de la reservación.
 export const SalonReservacion = ({ setSalonSeleccionado }) => {
   const URL_API = "http://localhost:4000/api/salon/disponibles";
   const [salones, setSalones] = useState([]);
@@ -12,6 +13,7 @@ export const SalonReservacion = ({ setSalonSeleccionado }) => {
     },
   };
 
+  // funcion asincrona para obtener los datos del salon y guardarlos en la variable de estado salones
   const obtenerSalones = async () => {
     const response = await axios.get(URL_API, httpConfig);
     if (response.status === 200) {
