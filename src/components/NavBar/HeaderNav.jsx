@@ -17,18 +17,18 @@ const HeaderNav = ({ children }) => {
       "Ahora saldrá del sistema",
       <SmileOutlined style={{ color: "#108ee9" }} />
     );
-    await sleep(2000);
     navigate("/login");
   };
 
   return (
     <Fragment>
-      <nav className="navbar navbar-expand-sm navbar-dark bg-dark">
+      <nav className="navbar navbar-expand-sm navbar-dark bg-dark" style={{ fontWeight: "bold", color: "white " }}>
         <div className="container">
           <Link
             to="/reservaciones"
             className="navbar-brand"
             about="Sala de Juntas"
+            style={{ fontWeight: "bold", color: "white " }}
           >
             Sala De Juntas
           </Link>
@@ -51,12 +51,13 @@ const HeaderNav = ({ children }) => {
                   to="/reservaciones"
                   className="nav-link"
                   aria-expanded="false"
+                  style={{ fontWeight: "bold", color: "white " }}
                 >
                   Reservaciones
                 </Link>
               </li>
               <li className="nav-item">
-                <Link to="/salones" className="nav-link" aria-expanded="false">
+                <Link to="/salones" className="nav-link" aria-expanded="false" style={{ fontWeight: "bold", color: "white " }}>
                   Salones
                 </Link>
               </li>
@@ -69,14 +70,15 @@ const HeaderNav = ({ children }) => {
                   data-toggle="dropdown"
                   aria-haspopup="true"
                   aria-expanded="false"
+                  style={{ fontWeight: "bold", color: "white " }}
                 >
                   <i className="fa fa-user" aria-hidden="true"></i>
                 </a>
                 <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a className="dropdown-item" href="#">
+                  {/* <a className="dropdown-item" href="#">
                     Configuración
                   </a>
-                  <div className="dropdown-divider"></div>
+                  <div className="dropdown-divider"></div> */}
                   <a className="dropdown-item" onClick={logout}>
                     Logout
                   </a>

@@ -3,20 +3,28 @@ import { TimePicker } from "antd";
 
 import "antd/dist/antd.css";
 import { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { openNotification } from "../ModalesAlerts/Alerts";
 import axios from "axios";
 
 export const NuevaReservacion = () => {
-  const location = useLocation();
+  const id_usuario = localStorage.getItem("id_usuario");
+  // const location = useLocation();
   const navigate = useNavigate();
 
-  const [reservaciones, setReservaciones] = useState(
-    location.state.reservaciones
-  );
+  // const [reservaciones, setReservaciones] = useState(
+  //   location.state.reservaciones
+  // );
   const [salonSeleccionado, setSalonSeleccionado] = useState(0);
   const [horaInicial, setHoraInicial] = useState("");
   const [horaFinal, setHoraFinal] = useState("");
+
+  const httpConfig = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+  };
 
   const handleOnchange = (time) => {
     if (
@@ -40,19 +48,24 @@ export const NuevaReservacion = () => {
     return parseInt(c[0]);
   };
 
-  const disabledTime = (current) => {
-    const horasIniciales = [];
-    const horasFinales = [];
-    reservaciones.map((res) => {
-      horasIniciales.push(parseHours(res.hora_inicial));
-      horasFinales.push(parseHours(res.hora_final));
-    });
+  // const disabledTime = (current) => {
+  //   const horasIniciales = [];
+  //   const horasFinales = [];
+  //   reservaciones.map((res) => {
+  //     horasIniciales.push(parseHours(res.hora_inicial));
+  //     horasFinales.push(parseHours(res.hora_final));
+  //   });
 
-    return {
-      disabledHours: () => horasIniciales.concat(horasFinales),
-      // disabledMinutes: () =>
-      //   range(parseMinutes(horaInicial), parseMinutes(horaFinal)),
-    };
+  //   return {
+  //     disabledHours: () => horasIniciales.concat(horasFinales),
+  //     // disabledMinutes: () =>
+  //     //   range(parseMinutes(horaInicial), parseMinutes(horaFinal)),
+  //   };
+  // };
+
+  const disabledTime = (current) => {
+    const hours = [0, 1, 2, 3, 4, 5];
+    return { disabledHours: () => hours };
   };
   const handleSave = async () => {
     const url_nueva_reservacion =
@@ -61,14 +74,18 @@ export const NuevaReservacion = () => {
     if (salonSeleccionado !== 0) {
       if (horaInicial !== "" && horaFinal !== "") {
         const data = {
-          id_usuario: 1,
+          id_usuario: id_usuario,
           id_salon: salonSeleccionado,
           hora_inicial: horaInicial,
           hora_final: horaFinal,
         };
 
         // console.log(data);
-        const nuevaReservacion = await axios.post(url_nueva_reservacion, data);
+        const nuevaReservacion = await axios.post(
+          url_nueva_reservacion,
+          data,
+          httpConfig
+        );
         if (nuevaReservacion.status === 200) {
           openNotification(
             "success",
@@ -97,11 +114,16 @@ export const NuevaReservacion = () => {
   return (
     <div className="container mt-4">
       <div className="card">
-        <div className="card-header">Nueva Reservación</div>
-        <div className="card-body justify-content-center text-center">
-          <h5>Seleccione un salón</h5>
+        <div
+          className="card-header text-center h5"
+          style={{ background: "black", color: "white", fontWeight: "bold" }}
+        >
+          Nueva Reservación
+        </div>
+        <div className="card-body justify-content-center text-center" style={{background:'#f0ecec'}}>
+          <h6>Seleccione un salón</h6>
           <SalonReservacion setSalonSeleccionado={setSalonSeleccionado} />
-          <h5>Seleccione horario</h5>
+          <h5 className="mt-3 mb-3">Seleccione horario</h5>
           <TimePicker.RangePicker
             onOk={handleOnchange}
             placeholder={["Inicio", "Fin"]}
